@@ -1,27 +1,86 @@
 // swift-tools-version: 6.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "GuidelinesSearch",
+    platforms: [
+        .macOS(.v13)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "GuidelinesSearch",
-            targets: ["GuidelinesSearch"]
+            targets: [
+                "GuidelinesSearch",
+            ]
+        ),
+        .executable(
+            name: "gsearchtest",
+            targets: [
+                "GuidelinesSearchTest",
+            ]
+        ),
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/leviouwendijk/Guidelines.git",
+            branch: "master"
+        ),
+        .package(
+            url: "https://github.com/leviouwendijk/DSL.git",
+            branch: "master"
+        ),
+        .package(
+            url: "https://github.com/leviouwendijk/Fuzzy.git",
+            branch: "master"
+        ),
+        .package(
+            url: "https://github.com/leviouwendijk/Matching.git",
+            branch: "master"
+        ),
+        .package(
+            url: "https://github.com/leviouwendijk/Ranking.git",
+            branch: "master"
         ),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "GuidelinesSearch"
+            name: "GuidelinesSearch",
+            dependencies: [
+                .product(
+                    name: "Guidelines",
+                    package: "Guidelines"
+                ),
+                .product(
+                    name: "DSL",
+                    package: "DSL"
+                ),
+                .product(
+                    name: "Fuzzy",
+                    package: "Fuzzy"
+                ),
+                .product(
+                    name: "Matching",
+                    package: "Matching"
+                ),
+                .product(
+                    name: "Ranking",
+                    package: "Ranking"
+                ),
+            ]
         ),
-        .testTarget(
-            name: "GuidelinesSearchTests",
-            dependencies: ["GuidelinesSearch"]
+        .executableTarget(
+            name: "GuidelinesSearchTest",
+            dependencies: [
+                "GuidelinesSearch",
+                .product(
+                    name: "Guidelines",
+                    package: "Guidelines"
+                ),
+            ]
         ),
     ],
-    swiftLanguageModes: [.v6]
+    swiftLanguageModes: [
+        .v6,
+    ]
 )
