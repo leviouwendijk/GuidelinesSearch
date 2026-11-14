@@ -47,6 +47,16 @@ public enum GuidelineStructuredContentProjection {
                 title.map(text) ?? "",
                 text(content),
             ])
+
+        case .table(
+            let header,
+            let rows
+        ):
+            return joined(
+                ([header] + rows).flatMap {
+                    $0.map(text)
+                }
+            )
         }
     }
 
