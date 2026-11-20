@@ -14,12 +14,6 @@ let package = Package(
                 "GuidelinesSearch",
             ]
         ),
-        .executable(
-            name: "gsearchtest",
-            targets: [
-                "GuidelinesSearchTest",
-            ]
-        ),
     ],
     dependencies: [
         .package(
@@ -66,16 +60,6 @@ let package = Package(
                 .product(
                     name: "Ranking",
                     package: "Ranking"
-                ),
-            ]
-        ),
-        .executableTarget(
-            name: "GuidelinesSearchTest",
-            dependencies: [
-                "GuidelinesSearch",
-                .product(
-                    name: "Guidelines",
-                    package: "Guidelines"
                 ),
             ]
         ),
